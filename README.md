@@ -4,14 +4,12 @@ Project BPN API is a backend system designed to manage the operations and resour
 
 ## Features
 
-
-
 ## Technologies Used
 
 - **Node.js**: Backend runtime environment.
 - **Express.js**: Web framework for building APIs.
 - **TypeScript**: Strongly typed programming language for better code quality.
-- **PostgreSQL**: Relational database for data storage.
+- **MySQL**: Relational database for data storage.
 - **prisma**: ORM for database interactions.
 
 ## Installation
@@ -32,6 +30,7 @@ Project BPN API is a backend system designed to manage the operations and resour
    Create a `.env` file in the root directory and configure the required variables (e.g., database credentials, JWT secret).
 
 5. Run database migrations:
+
    ```bash
    npx prisma migrate dev
    ```
