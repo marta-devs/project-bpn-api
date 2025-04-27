@@ -1,11 +1,11 @@
-import { Request, Response, Router } from 'express';
+import { type Request, type Response, Router } from 'express';
 
 export class UserController {
-    async getUser(req: Request, res: Response): Promise<any> {
-        const isOnline = true;
+	async getUser(req: Request, res: Response): Promise<any> {
+		const isOnline = true;
 
-        if (!isOnline) throw new Error('User is offline');
+		if (!isOnline) throw new Error('User is offline');
 
-        return res.send('Hello World');
-    }
+		return res.send('Hello World');
+	}
 }
