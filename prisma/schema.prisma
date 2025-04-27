@@ -8,11 +8,195 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
+model Militar {
+  id                  String                @id @default(uuid())
+  nome                String
+  nomeGuerra          String                @map("nome_guerra")
+  dataNascimento      DateTime              @map("data_nascimento")
+  sexo                String
+  patente             String
+  situacaoMilitar     String                @map("situacao_militar")
+  nacionalidade       String
+  estadoCivil         String                @map("estado_civil")
+  dataIncorporacao    DateTime              @map("data_incorporacao")
+  naturalidade        String
+  telefone1           String
+  telefone2           String?
+  NIP                 String                @unique
+  email               String?
+  enderecoId          String
+  dadosPessoaisId     String
+  endereco            Endereco              @relation(fields: [enderecoId], references: [id])
+  dadosPessoais       DadosPessoais         @relation(fields: [dadosPessoaisId], references: [id])
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime              @updatedAt
+  Promocoes           Promocoes[]
+  FormacoesAcademicas FormacoesAcademicas[]
+  FormacoesMilitares  FormacoesMilitares[]
+  Especializacoes     Especializacoes[]
+  ContactoEmergencia  ContactoEmergencia[]
+
+  @@map("militar")
+}
+
+model Endereco {
+  id         String    @id @default(uuid())
+  provincia  String
+  municipio  String
+  bairro     String
+  rua        String
+  numeroCasa String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Militar    Militar[]
+
+  @@map("endereco")
+}
+
+model DadosPessoais {
+  id                    String    @id @default(uuid())
+  filiacaoPaterna       String    @map("filiacao_paterna")
+  filiacaoMaterna       String    @map("filiacao_materna")
+  numeroBI              String    @unique @map("numero_bi")
+  numeroPassaporte      String?   @map("numero_passaporte")
+  numeroSegurancaSocial String?   @map("numero_seguranca_social")
+  quantidadeFilho       Int?      @map("quantidade_filho")
+  nomeEsposa            String?   @map("nome_esposa")
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  Militar               Militar[]
+
+  @@map("dados_pessoais")
+}
+
+model Promocoes {
+  id           String   @id @default(uuid())
+  promocao     String
+  descricao    String
+  dataPromocao DateTime
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  militarId    String
+  militar      Militar  @relation(fields: [militarId], references: [id])
+
+  @@map("promocoes")
+}
+
+model FormacoesAcademicas {
+  id           String   @id @default(uuid())
+  instituicao  String
+  tipoDeEnsino String   @map("tipo_de_ensino")
+  classe       String?
+  Ano          String?
+  dataInicio   String   @map("data_inicio")
+  dataFim      String   @map("data_fim")
+  curso        String?
+  militarId    String
+  militar      Militar  @relation(fields: [militarId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("formacoes_academicas")
+}
+
+model FormacoesMilitares {
+  id          String   @id @default(uuid())
+  curso       String
+  instituicao String
+  dataInicio  DateTime @map("data_inicio")
+  dataFim     DateTime @map("data_fim")
+  militarId   String
+  militar     Militar  @relation(fields: [militarId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("formacoes_militares")
+}
+
+model Especializacoes {
+  id          String   @id @default(uuid())
+  curso       String
+  instituicao String
+  dataInicio  DateTime @map("data_inicio")
+  dataFim     DateTime @map("data_fim")
+  militarId   String
+  militar     Militar  @relation(fields: [militarId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("especializacoes")
+}
+
+model ContactoEmergencia {
+  id             String   @id @default(uuid())
+  nome           String
+  telefone       String
+  grauParentesco String
+  militarId      String
+  militar        Militar  @relation(fields: [militarId], references: [id])
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("contacto_emergencia")
+}
+
+model Curso {
+  id        String   @id @default(uuid())
+  nome      String
+  descricao String
+  tipoCurso String   @map("tipo_curso")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("curso")
+}
+
+model Instituicao {
+  id          String   @id @default(uuid())
+  nome        String
+  descricao   String
+  tipoCurso   String   @map("tipo_curso")
+  localizacao String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("instituicao")
+}
+
+model TipoEnsino {
+  id        String   @id @default(uuid())
+  nome      String
+  descricao String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("tipo_ensino")
+}
+
+model Historico {
+  id              String   @id @default(uuid())
+  tituloHistorico String   @map("titulo_historico")
+  descricao       String
+  dataHistorico   DateTime @map("data_historico")
+  militarId       String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("historico")
+}
+
+//Modulo de sistema
+
+model Usuario {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  password  String
+  status    String
+  qrcode    String
+  funcao    String
+  militarId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("usuario")
 }
