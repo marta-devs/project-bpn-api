@@ -1,8 +1,18 @@
 import { Router } from 'express';
-import { UserController } from '@/controllers/user-controller';
+import { readdirSync } from 'node:fs';
+import path from 'node:path';
 
 const routes = Router();
 
-routes.get('/', new UserController().getUser);
+readdirSync(path.resolve(__dirname, 'routes')).forEach(async (file) => {
+	if (file === 'base.routes.ts') {
+		return;
+	}
+
+	const module = await import(`routes/${file}`);
+	const BaseRouteModule = module.default;
+	const baseRoute = new BaseRouteModule();
+	baseRoute.routes(routes);
+});
 
 export default routes;

@@ -22,6 +22,11 @@
       "recommended": true,
       "suspicious": {
         "noExplicitAny": "off"
+      },
+      "complexity": {
+        "useLiteralKeys": "off",
+        "noStaticOnlyClass": "off",
+          "noForEach": "off"
       }
     }
   },
