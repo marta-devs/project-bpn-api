@@ -10,6 +10,12 @@
       "src",
       "test"
     ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "typeRoots": [
+      "./node_modules/@types",
+      "src/@types"
+    ],
     "baseUrl": "src",
     "paths": {
       "@/*": [

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import express from 'express';
 import prisma from './libs/prisma';
 import cors from 'cors';

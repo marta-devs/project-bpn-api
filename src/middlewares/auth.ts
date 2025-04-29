@@ -1,4 +1,5 @@
 import jwtConfig from '@/configs/jwt-config';
+import type { User } from '@/models/user';
 import { UnauthorizedError } from '@/utils/api-errors';
 import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
@@ -22,7 +23,7 @@ export const ensureAuthenticated = async (
 
 	try {
 		const payload = jwt.verify(token, jwtConfig.secret);
-		request['user'] = payload;
+		request.user = payload as User;
 	} catch (error) {
 		throw new UnauthorizedError('Token invalid');
 	}
