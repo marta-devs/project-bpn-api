@@ -57,6 +57,8 @@ export abstract class BaseController {
 
 	private async handleCreate(request: Request, response: Response) {
 		const corpoRequisicao = request.body;
+    const id = request.params.id
+    console.log(id)
 		const user = request.user;
 
 		const resultado = await this.baseService.execute(

@@ -13,8 +13,9 @@ const errorMiddleware: ErrorRequestHandler = (
 	next: NextFunction,
 ) => {
 	const statusCode = err.statuscode ?? 500;
-	const message = err.statuscode ? err.message : 'Internal Server Error';
+	const message = err.message ? err.message : 'Internal Server Error';
 	response.status(statusCode).json({ message, data: null, error: err });
+	next();
 };
 
 export default errorMiddleware;

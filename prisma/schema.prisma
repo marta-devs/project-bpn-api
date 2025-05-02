@@ -38,7 +38,6 @@ model Militar {
 
   @@map("militar")
 }
-
 model Endereco {
   id         String    @id @default(uuid())
   provincia  String

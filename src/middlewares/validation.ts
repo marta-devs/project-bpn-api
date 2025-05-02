@@ -8,11 +8,11 @@ export function validateData(schema: z.ZodObject<any, any>) {
 		const result = schema.safeParse(body);
 
 		if (!result.success) {
-			const errors = result.error.errors.map((error) => ({
-				message: error.message,
-			}));
+			const errors = result.error.errors.map((error) => error.message);
 
 			throw new BadRequestError(errors.toString());
 		}
+
+		next();
 	};
 }
