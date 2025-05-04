@@ -1,6 +1,7 @@
-import { OperationCrud } from '@/constants/operation-crud';
-import type { BaseService } from '@/services/base-service';
-import { created, noContent, ok } from '@/utils/http-helper';
+import { OperationCrud } from '../constants/operation-crud';
+import type { BaseService } from '../services/base-service';
+import { ApiError } from '../utils/api-errors';
+import { created, noContent, ok, responseError } from '../utils/http-helper';
 import type { Request, Response } from 'express';
 
 export abstract class BaseController {
@@ -24,65 +25,83 @@ export abstract class BaseController {
 	}
 
 	private async handleDelete(request: Request, response: Response) {
-		const paramentros = request.params;
-		await this.baseService.execute({ ...paramentros });
-		return noContent(response, 'Deletado com Sucesso');
+		try {
+			const paramentros = request.params;
+			await this.baseService.execute({ ...paramentros });
+			return noContent(response, 'Dados deletado com Sucesso');
+		} catch (error: any) {
+			return responseError(response, error);
+		}
 	}
 
 	private async handleFind(request: Request, response: Response) {
-		const paramentros = request.params;
+		try {
+			const paramentros = request.params;
 
-		const resultado = await this.baseService.execute({ ...paramentros });
+			const resultado = await this.baseService.execute({ ...paramentros });
 
-		return ok(
-			response,
-			{ data: { ...resultado } },
-			'Dados buscado com sucesso',
-		);
+			return ok(
+				response,
+				{ data: { ...resultado } },
+				'Dados buscado com sucesso',
+			);
+		} catch (error: any) {
+			return responseError(response, error);
+		}
 	}
 
 	private async handleRead(request: Request, response: Response) {
-		const query = request.query;
+		try {
+			const query = request.query;
 
-		const resultados = await this.baseService.execute({
-			filtros: { ...query },
-		});
+			const resultados = await this.baseService.execute({
+				filtros: { ...query },
+			});
 
-		return ok(
-			response,
-			{ data: [...resultados] },
-			'Dados buscados com sucesso',
-		);
+			return ok(
+				response,
+				{ data: [...resultados] },
+				'Dados buscados com sucesso',
+			);
+		} catch (error: any) {
+			return responseError(response, error);
+		}
 	}
 
 	private async handleCreate(request: Request, response: Response) {
-		const corpoRequisicao = request.body;
-    const id = request.params.id
-    console.log(id)
-		const user = request.user;
+		try {
+			const corpoRequisicao = request.body;
+			const user = request.user;
 
-		const resultado = await this.baseService.execute(
-			{ ...corpoRequisicao },
-			user,
-		);
+			const resultado = await this.baseService.execute(
+				{ ...corpoRequisicao },
+				user,
+			);
 
-		return created(response, { data: resultado }, 'Dado criado com sucesso');
+			return created(response, { data: resultado }, 'Dado criado com sucesso');
+		} catch (error: any) {
+			return responseError(response, error);
+		}
 	}
 
 	private async handleUpdate(request: Request, response: Response) {
-		const paramentro = request.params;
-		const corpoRequisicao = request.body;
-		const user = request.user;
+		try {
+			const paramentro = request.params;
+			const corpoRequisicao = request.body;
+			const user = request.user;
 
-		const resultado = await this.baseService.execute(
-			{ id: paramentro, ...corpoRequisicao },
-			user,
-		);
+			const resultado = await this.baseService.execute(
+				{ id: paramentro, ...corpoRequisicao },
+				user,
+			);
 
-		return ok(
-			response,
-			{ data: { ...resultado } },
-			'Dado atualizado com sucesso',
-		);
+			return ok(
+				response,
+				{ data: { ...resultado } },
+				'Dado atualizado com sucesso',
+			);
+		} catch (error: any) {
+			return responseError(response, error);
+		}
 	}
 }

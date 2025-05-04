@@ -1,4 +1,4 @@
-import prisma from '@/libs/prisma';
+import prisma from '../libs/prisma';
 import type { Curso } from '../../generated/prisma';
 import { DAOGenerico } from './DAO';
 

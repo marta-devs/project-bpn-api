@@ -2,26 +2,15 @@
   "openapi": "3.1.0",
   "info": {
     "version": "1.0.0",
-    "title": "My API",
-    "description": "Some description..."
+    "title": "project bpn api",
+    "description": "API documentation for project bpn"
   },
   "servers": [
     {
       "url": "http://localhost:3333"
     }
   ],
-  "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "default": {
-            "description": ""
-          }
-        }
-      }
-    }
-  },
+  "paths": {},
   "components": {
     "schemas": {
       "someBody": {

@@ -1,4 +1,5 @@
 import { type Request, type Response, Router } from 'express';
+import { fakerPT_BR as faker } from '@faker-js/faker';
 
 export class UserController {
 	async getUser(req: Request, res: Response): Promise<any> {
@@ -6,6 +7,6 @@ export class UserController {
 
 		if (!isOnline) throw new Error('User is offline');
 
-		return res.send('Hello World');
+		return res.send(faker.string.uuid());
 	}
 }

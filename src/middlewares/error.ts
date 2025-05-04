@@ -1,10 +1,11 @@
-import type { ApiError } from '@/utils/api-errors';
+import type { ApiError } from '../utils/api-errors';
 import type {
 	Request,
 	Response,
 	NextFunction,
 	ErrorRequestHandler,
 } from 'express';
+import { responseError } from '../utils/http-helper';
 
 const errorMiddleware: ErrorRequestHandler = (
 	err: Error & Partial<ApiError>,
@@ -12,9 +13,7 @@ const errorMiddleware: ErrorRequestHandler = (
 	response: Response,
 	next: NextFunction,
 ) => {
-	const statusCode = err.statuscode ?? 500;
-	const message = err.message ? err.message : 'Internal Server Error';
-	response.status(statusCode).json({ message, data: null, error: err });
+	responseError(response, err);
 	next();
 };
 
