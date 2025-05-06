@@ -1,5 +1,5 @@
-import { OperationCrud } from '@/constants/operation-crud';
-import type { DAOGenerico } from '@/repositories/DAO';
+import { OperationCrud } from '../constants/operation-crud';
+import type { DAOGenerico } from '../repositories/DAO';
 
 export abstract class BaseService<InputDTO = any, OutputDTO = any> {
 	constructor(
@@ -36,7 +36,7 @@ export abstract class BaseService<InputDTO = any, OutputDTO = any> {
 	}
 
 	private async executeFind(input: any): Promise<any> {
-		return await this.daoGenerico.excluir(input.id);
+		return await this.daoGenerico.buscarPorId(input.id);
 	}
 
 	private async executeRead(input: any): Promise<any> {

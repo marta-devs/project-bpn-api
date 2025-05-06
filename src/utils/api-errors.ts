@@ -2,7 +2,6 @@ export class ApiError extends Error {
 	public readonly statuscode: number;
 
 	constructor(message: string, statusCode: number) {
-		console.log('super Apirror:', message);
 		super(message);
 		this.statuscode = statusCode;
 	}

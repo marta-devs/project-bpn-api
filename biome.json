@@ -23,10 +23,15 @@
       "suspicious": {
         "noExplicitAny": "off"
       },
+      "style": {
+        "useNumberNamespace": "off"
+      },
       "complexity": {
         "useLiteralKeys": "off",
         "noStaticOnlyClass": "off",
-          "noForEach": "off"
+        "noForEach": "off",
+        "noUselessConstructor": "off",
+        "noThisInStatic": "off"
       }
     }
   },

@@ -26,8 +26,8 @@ model Militar {
   email               String?
   enderecoId          String
   dadosPessoaisId     String
-  endereco            Endereco              @relation(fields: [enderecoId], references: [id])
-  dadosPessoais       DadosPessoais         @relation(fields: [dadosPessoaisId], references: [id])
+  endereco            Endereco              @relation(fields: [enderecoId], references: [id], onDelete: Cascade)
+  dadosPessoais       DadosPessoais         @relation(fields: [dadosPessoaisId], references: [id], onDelete: Cascade)
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
   Promocoes           Promocoes[]
@@ -35,9 +35,11 @@ model Militar {
   FormacoesMilitares  FormacoesMilitares[]
   Especializacoes     Especializacoes[]
   ContactoEmergencia  ContactoEmergencia[]
+  Usuario             Usuario[]
 
   @@map("militar")
 }
+
 model Endereco {
   id         String    @id @default(uuid())
   provincia  String
@@ -196,6 +198,7 @@ model Usuario {
   militarId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  militar   Militar  @relation(fields: [militarId], references: [id])
 
   @@map("usuario")
 }

@@ -1,8 +1,6 @@
-import { OperationCrud } from '@/constants/operation-crud';
+import { OperationCrud } from '../../constants/operation-crud';
 import { BaseService } from '../base-service';
-import { inject, injectable } from 'tsyringe';
-import { DAOGenerico } from '@/repositories/DAO';
-import { CursoRepository } from '@/repositories/curso-respository';
+import type { CursoRepository } from '../../repositories/curso-respository';
 
 export type AddCursoInput = {
 	id: string;

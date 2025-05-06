@@ -6,16 +6,14 @@ const routes = Router();
 
 readdirSync(path.resolve(__dirname, 'routes')).forEach(async (file) => {
 	if (file === 'base.routes.ts') {
-		return ;
+		return;
 	}
 
-	const module = await import(`routes/${file}`);
+	const module = await import(`../src/routes/${file}`);
 	const BaseRouteModule = module.default;
-  console.log(typeof BaseRouteModule)
 	const baseRoute = new BaseRouteModule();
-  
-	baseRoute.routes(routes);
 
+	baseRoute.routes(routes);
 });
 
 export default routes;
