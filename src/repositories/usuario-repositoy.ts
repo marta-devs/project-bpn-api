@@ -1,6 +1,6 @@
-import prisma from '@/libs/prisma';
+import prisma from '../libs/prisma';
 import { DAOGenerico } from './DAO';
-import type { Prisma, Usuario } from '../../generated/prisma';
+import type { Usuario } from '../../generated/prisma';
 
 export interface UsuarioInterfaceOutPut {
 	id: string;
@@ -24,6 +24,19 @@ export class UsuarioRepository extends DAOGenerico<Usuario> {
 		const usuario = await prisma.usuario.findUnique({
 			where: {
 				username,
+			},
+			include: {
+				militar: true,
+			},
+		});
+		return usuario;
+	}
+	public async buscarPorMilitarId(
+		militarId: string,
+	): Promise<UsuarioInterfaceOutPut | null> {
+		const usuario = await prisma.usuario.findFirst({
+			where: {
+				militarId,
 			},
 		});
 		return usuario;

@@ -1,8 +1,5 @@
-import type {
-	LoginRepositoryOutPut,
-	LogService,
-} from '@/services/login/login-service';
-import { ok } from '@/utils/http-helper';
+import type { LogService } from '../services/login/login-service';
+import { ok } from '../utils/http-helper';
 import type { Request, Response } from 'express';
 
 export class LogController {
