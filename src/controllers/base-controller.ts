@@ -53,7 +53,7 @@ export abstract class BaseController {
 	private async handleRead(request: Request, response: Response) {
 		try {
 			const query = request.query;
-
+			const params = request.params;
 			const resultados = await this.baseService.execute({
 				filtros: { ...query },
 			});

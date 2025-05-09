@@ -2,6 +2,8 @@ import type { FormacaoMilitaryRepository } from '../../repositories/formacao-mil
 import { FormacoesMilitares, Militar } from '../../../generated/prisma';
 import { BaseService } from '../base-service';
 import { OperationCrud } from '../../constants/operation-crud';
+import type { MilitarRepository } from '../../repositories/militar-repository';
+import { NotFoundError } from '../../utils/api-errors';
 
 export interface FormacoesMilitaresInPut {
 	id: string;
@@ -23,15 +25,22 @@ export class FindAllFormacaoMilitarService extends BaseService<
 	FormacoesMilitaresInPut,
 	FormacoesMilitaresOutPut
 > {
-	constructor(formacoesMilitarRepository: FormacaoMilitaryRepository) {
+	constructor(
+		formacoesMilitarRepository: FormacaoMilitaryRepository,
+		private readonly militarRepository: MilitarRepository,
+	) {
 		super(formacoesMilitarRepository, OperationCrud.READ);
 	}
 	public async execute(
-		inputDTO: any,
+		inputDTO: FormacoesMilitaresInPut,
 		user?: any,
 	): Promise<FormacoesMilitaresOutPut> {
-		const formacoesMilitares = await super.executeBase(inputDTO);
-		console.log(formacoesMilitares);
-		return formacoesMilitares;
+		console.log(user);
+		const militar = await this.militarRepository.buscarPorId(user.id);
+		if (!militar) {
+			throw new NotFoundError('militar nao encontrado');
+		}
+		const formacaoMilitar = await super.executeBase(inputDTO);
+		return formacaoMilitar;
 	}
 }
