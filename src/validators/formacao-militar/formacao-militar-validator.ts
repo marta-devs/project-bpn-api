@@ -5,5 +5,4 @@ export const addFormacaoMilitaryValidator = z.object({
 	instituicao: z.string().nonempty('preencha o campo instituicao'),
 	dataInicio: z.string().datetime().nonempty('preencha o campo data de inicio'),
 	dataFim: z.string().datetime().nonempty('preencha o campo data de termino'),
-	militarId: z.string().uuid().nonempty('campo militarId e requerido'),
 });

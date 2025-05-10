@@ -54,9 +54,12 @@ export abstract class BaseController {
 		try {
 			const query = request.query;
 			const params = request.params;
-			const resultados = await this.baseService.execute({
-				filtros: { ...query },
-			});
+			const resultados = await this.baseService.execute(
+				{
+					filtros: { ...query },
+				},
+				params,
+			);
 
 			return ok(
 				response,
@@ -72,10 +75,14 @@ export abstract class BaseController {
 		try {
 			const corpoRequisicao = request.body;
 			const user = request.user;
+			const params = request.params.id;
+
+			console.log(params);
 
 			const resultado = await this.baseService.execute(
 				{ ...corpoRequisicao },
 				user,
+				params,
 			);
 
 			return created(response, { data: resultado }, 'Dado criado com sucesso');

@@ -1,8 +1,8 @@
-import type { AddFormacaoMilitarService } from '../../services/formacaoMilitar/add-formacao-militar-service';
+import type { AdicionarFormacaoMilitarService } from '../../services/formacaoMilitar/adicionar-formacao-militar-service';
 import { BaseController } from '../base-controller';
 
 export class AddFormacaoMilitaryController extends BaseController {
-	constructor(addFormacaoMilitarService: AddFormacaoMilitarService) {
+	constructor(addFormacaoMilitarService: AdicionarFormacaoMilitarService) {
 		super(addFormacaoMilitarService);
 	}
 }

@@ -1,8 +1,8 @@
-import type { FindOneFormacaoMilitarService } from '../../services/formacaoMilitar/find-one-formacao-militar-service';
+import type { BuscarUmaFormacaoMilitarService } from '../../services/formacaoMilitar/buscar-uma-formacao-militar-service';
 import { BaseController } from '../base-controller';
 
-export class FindOneFormacaoMilitarController extends BaseController {
-	constructor(findOneFormacaoMilitaryServe: FindOneFormacaoMilitarService) {
+export class BuscarUmaFormacaoMilitarController extends BaseController {
+	constructor(findOneFormacaoMilitaryServe: BuscarUmaFormacaoMilitarService) {
 		super(findOneFormacaoMilitaryServe);
 	}
 }

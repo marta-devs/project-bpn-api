@@ -38,12 +38,6 @@
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
-<<<<<<< HEAD
-    "@types/bcrypt": "^5.0.2",
-    "@types/swagger-ui-express": "^4.1.8",
-    "bcrypt": "^5.1.1",
-=======
->>>>>>> 2707fb0ddae2aa8e216c82475c71481ea83edf00
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
