@@ -58,11 +58,11 @@ export abstract class BaseController {
 				filtros: { ...query },
 			});
 
-			return ok(
-				response,
-				{ data: [...resultados] },
-				'Dados buscados com sucesso',
-			);
+			if (resultados.length === 0) {
+				return noContent(response, 'Não existe nenhum dado na base de dados');
+			}
+
+			return ok(response, resultados, 'Dados buscados com sucesso');
 		} catch (error: any) {
 			return responseError(response, error);
 		}

@@ -1,10 +1,14 @@
 export abstract class DAOGenerico<ModelPrisma = any> {
 	constructor(private readonly model: any) {}
 
-	async buscarTodos(include?: any): Promise<ModelPrisma[]> {
-		return include
-			? await this.model.findMany(include)
+	async buscarTodos(include?: any): Promise<any[]> {
+		console.log('include: ', include);
+		const response = include
+			? await this.model.findMany({ include })
 			: await this.model.findMany();
+		console.log('data: ', response);
+
+		return response;
 	}
 
 	async buscarPorId(id: string): Promise<ModelPrisma | null> {

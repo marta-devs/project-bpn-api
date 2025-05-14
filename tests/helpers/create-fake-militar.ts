@@ -25,6 +25,10 @@ export const createFakeMilitar = async () => {
 		});
 
 		const militar = await prismaTransaction.militar.create({
+			include: {
+				endereco: true,
+				dadosPessoais: true,
+			},
 			data: {
 				nome: 'any_nome',
 				nomeGuerra: 'any_nomeGuerra',

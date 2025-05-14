@@ -1,15 +1,18 @@
 import { OperationCrud } from '../constants/operation-crud';
 import type { DAOGenerico } from '../repositories/DAO';
 
-export abstract class BaseService<InputDTO = any, OutputDTO = any> {
+export abstract class BaseService<InputDTO = any, OutputDTO = any | any[]> {
 	constructor(
 		private readonly daoGenerico: DAOGenerico,
 		public operationCrud: OperationCrud,
 	) {}
 
-	public abstract execute(inputDTO: InputDTO, user?: any): Promise<OutputDTO>;
+	public abstract execute(
+		inputDTO: InputDTO,
+		user?: any,
+	): Promise<OutputDTO | any>;
 
-	protected async executeBase(input: any, include?: any): Promise<any> {
+	protected async executeBase(input: any, include?: any): Promise<any | any[]> {
 		switch (this.operationCrud) {
 			case OperationCrud.CREATE:
 				return this.executeCreate(input);
@@ -40,7 +43,7 @@ export abstract class BaseService<InputDTO = any, OutputDTO = any> {
 	}
 
 	private async executeRead(input: any): Promise<any> {
-		const filtros = input.includes;
+		const filtros = input.include;
 		return filtros
 			? await this.daoGenerico.buscarTodos(filtros)
 			: await this.daoGenerico.buscarTodos();

@@ -3,12 +3,12 @@ import type { ApiError } from './api-errors';
 
 export const ok = (
 	response: Response,
-	data: any,
+	data: any | any[],
 	message: string,
 	meta?: any,
 ) => {
 	return response.status(200).json({
-		data,
+		data: data,
 		error: null,
 		message,
 		meta,

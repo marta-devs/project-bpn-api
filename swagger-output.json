@@ -54,7 +54,7 @@
     "/militares/{id}": {
       "delete": {
         "tags": [
-          "Militar"
+          "Militares"
         ],
         "summary": "Returns a user by id",
         "description": "This endpoint will return a user by id...",
@@ -70,7 +70,7 @@
           }
         ],
         "responses": {
-          "203": {
+          "204": {
             "description": "Some description...",
             "content": {
               "application/json": {
@@ -102,6 +102,46 @@
                     "name": "BadRequestError",
                     "message": "aldaldladlaldaldla"
                   }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Some description...",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/militares": {
+      "get": {
+        "tags": [
+          "Militares"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/militaresResponse"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "204": {
+            "description": "Some description...",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/noContentDelete"
                 }
               }
             }
@@ -245,6 +285,337 @@
           "yellow",
           "green"
         ]
+      },
+      "militaresResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Dados buscados com sucesso"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "any_id"
+                },
+                "nome": {
+                  "type": "string",
+                  "example": "any_nome"
+                },
+                "nomeGuerra": {
+                  "type": "string",
+                  "example": "any_nomeGuerra"
+                },
+                "dataNascimento": {
+                  "type": "string",
+                  "example": "any_dataNascimento"
+                },
+                "sexo": {
+                  "type": "string",
+                  "example": "Masculino"
+                },
+                "patente": {
+                  "type": "string",
+                  "example": "any_patente"
+                },
+                "situacaoMilitar": {
+                  "type": "string",
+                  "example": "any_patente"
+                },
+                "nacionalidade": {
+                  "type": "string",
+                  "example": "any_nacionalidade"
+                },
+                "estadoCivil": {
+                  "type": "string",
+                  "example": "any_estadoCivil"
+                },
+                "dataIncorporacao": {
+                  "type": "string",
+                  "example": "any_dataIncorporacao"
+                },
+                "naturalidade": {
+                  "type": "string",
+                  "example": "any_naturalidade"
+                },
+                "telefone1": {
+                  "type": "string",
+                  "example": "any_telefone1"
+                },
+                "telefone2": {
+                  "type": "string",
+                  "example": "any_telefone2"
+                },
+                "NIP": {
+                  "type": "string",
+                  "example": "any_nip"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "any_email@mail.com"
+                },
+                "endereco": {
+                  "type": "object",
+                  "properties": {
+                    "provincia": {
+                      "type": "string",
+                      "example": "any_provincia"
+                    },
+                    "municipio": {
+                      "type": "string",
+                      "example": "any_provincia"
+                    },
+                    "bairro": {
+                      "type": "string",
+                      "example": "any_bairro"
+                    },
+                    "rua": {
+                      "type": "string",
+                      "example": "any_rua"
+                    },
+                    "numeroCasa": {
+                      "type": "string",
+                      "example": "any_numeroCasa"
+                    }
+                  }
+                },
+                "DadosPessoais": {
+                  "type": "object",
+                  "properties": {
+                    "filiacaoMaterna": {
+                      "type": "string",
+                      "example": "any_filiacaoMaterna"
+                    },
+                    "filiacaoPaterna": {
+                      "type": "string",
+                      "example": "any_filiacaoPaterna"
+                    },
+                    "numeroBI": {
+                      "type": "string",
+                      "example": "any_numeroBI"
+                    },
+                    "numeroPassaporte": {
+                      "type": "string",
+                      "example": "any_numeroPassaporte"
+                    },
+                    "numeroSegurancaSocial": {
+                      "type": "string",
+                      "example": "any_numeroSegurancaSocial"
+                    },
+                    "quantidadeFilho": {
+                      "type": "number",
+                      "example": 4
+                    },
+                    "nomeEsposa": {
+                      "type": "string",
+                      "example": "any_nomeEsposa"
+                    }
+                  }
+                },
+                "Promocao": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "any_id"
+                      },
+                      "promocao": {
+                        "type": "string",
+                        "example": "any_promocao"
+                      },
+                      "descricao": {
+                        "type": "string",
+                        "example": "any_descricao"
+                      },
+                      "dataPromocao": {
+                        "type": "string",
+                        "example": "any_dataPromocao"
+                      }
+                    }
+                  }
+                },
+                "FormacoesAcademicas": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "any_id"
+                      },
+                      "instituicao": {
+                        "type": "string",
+                        "example": "any_instituicao"
+                      },
+                      "tipoDeEnsino": {
+                        "type": "string",
+                        "example": "any_tipoDeEnsino"
+                      },
+                      "classe": {
+                        "type": "string",
+                        "example": "any_classe"
+                      },
+                      "Ano": {
+                        "type": "string",
+                        "example": "any_ano"
+                      },
+                      "dataInicio": {
+                        "type": "string",
+                        "example": "any_dataInicio"
+                      },
+                      "dataFim": {
+                        "type": "string",
+                        "example": "any_dataFim"
+                      },
+                      "curso": {
+                        "type": "string",
+                        "example": "any_curso"
+                      },
+                      "militarId": {
+                        "type": "string",
+                        "example": "any_militarId"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "any_data"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "any_data"
+                      }
+                    }
+                  }
+                },
+                "FormacoesMilitares": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "any_id"
+                      },
+                      "instituicao": {
+                        "type": "string",
+                        "example": "any_instituicao"
+                      },
+                      "dataInicio": {
+                        "type": "string",
+                        "example": "any_dataInicio"
+                      },
+                      "dataFim": {
+                        "type": "string",
+                        "example": "any_dataFim"
+                      },
+                      "curso": {
+                        "type": "string",
+                        "example": "any_curso"
+                      },
+                      "militarId": {
+                        "type": "string",
+                        "example": "any_militarId"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "any_data"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "any_data"
+                      }
+                    }
+                  }
+                },
+                "Especilidades": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "any_id"
+                      },
+                      "instituicao": {
+                        "type": "string",
+                        "example": "any_instituicao"
+                      },
+                      "tipoDeEnsino": {
+                        "type": "string",
+                        "example": "any_tipoDeEnsino"
+                      },
+                      "dataInicio": {
+                        "type": "string",
+                        "example": "any_dataInicio"
+                      },
+                      "dataFim": {
+                        "type": "string",
+                        "example": "any_dataFim"
+                      },
+                      "curso": {
+                        "type": "string",
+                        "example": "any_curso"
+                      },
+                      "militarId": {
+                        "type": "string",
+                        "example": "any_militarId"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "any_data"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "any_data"
+                      }
+                    }
+                  }
+                },
+                "ContactoEmergencia": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "any_id"
+                      },
+                      "nome": {
+                        "type": "string",
+                        "example": "any_nome"
+                      },
+                      "telefone": {
+                        "type": "string",
+                        "example": "any_telefone"
+                      },
+                      "grauParentesco": {
+                        "type": "string",
+                        "example": "any_grauParentesco"
+                      },
+                      "militarId": {
+                        "type": "string",
+                        "example": "any_militarId"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "any_data"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "any_data"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "securitySchemes": {
