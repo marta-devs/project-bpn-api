@@ -26,17 +26,19 @@ model Militar {
   email               String?
   enderecoId          String
   dadosPessoaisId     String
-  endereco            Endereco              @relation(fields: [enderecoId], references: [id], onDelete: Cascade)
-  dadosPessoais       DadosPessoais         @relation(fields: [dadosPessoaisId], references: [id], onDelete: Cascade)
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
-  Promocoes           Promocoes[]
+  ContactoEmergencia  ContactoEmergencia[]
+  Especializacoes     Especializacoes[]
   FormacoesAcademicas FormacoesAcademicas[]
   FormacoesMilitares  FormacoesMilitares[]
-  Especializacoes     Especializacoes[]
-  ContactoEmergencia  ContactoEmergencia[]
+  dadosPessoais       DadosPessoais         @relation(fields: [dadosPessoaisId], references: [id], onDelete: Cascade)
+  endereco            Endereco              @relation(fields: [enderecoId], references: [id], onDelete: Cascade)
+  Promocoes           Promocoes[]
   Usuario             Usuario[]
 
+  @@index([dadosPessoaisId], map: "militar_dadosPessoaisId_fkey")
+  @@index([enderecoId], map: "militar_enderecoId_fkey")
   @@map("militar")
 }
 
@@ -80,6 +82,7 @@ model Promocoes {
   militarId    String
   militar      Militar  @relation(fields: [militarId], references: [id])
 
+  @@index([militarId], map: "promocoes_militarId_fkey")
   @@map("promocoes")
 }
 
@@ -93,10 +96,11 @@ model FormacoesAcademicas {
   dataFim      String   @map("data_fim")
   curso        String?
   militarId    String
-  militar      Militar  @relation(fields: [militarId], references: [id])
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+  militar      Militar  @relation(fields: [militarId], references: [id])
 
+  @@index([militarId], map: "formacoes_academicas_militarId_fkey")
   @@map("formacoes_academicas")
 }
 
@@ -107,10 +111,11 @@ model FormacoesMilitares {
   dataInicio  DateTime @map("data_inicio")
   dataFim     DateTime @map("data_fim")
   militarId   String
-  militar     Militar  @relation(fields: [militarId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  militar     Militar  @relation(fields: [militarId], references: [id])
 
+  @@index([militarId], map: "formacoes_militares_militarId_fkey")
   @@map("formacoes_militares")
 }
 
@@ -121,10 +126,11 @@ model Especializacoes {
   dataInicio  DateTime @map("data_inicio")
   dataFim     DateTime @map("data_fim")
   militarId   String
-  militar     Militar  @relation(fields: [militarId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  militar     Militar  @relation(fields: [militarId], references: [id])
 
+  @@index([militarId], map: "especializacoes_militarId_fkey")
   @@map("especializacoes")
 }
 
@@ -134,10 +140,11 @@ model ContactoEmergencia {
   telefone       String
   grauParentesco String
   militarId      String
-  militar        Militar  @relation(fields: [militarId], references: [id])
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  militar        Militar  @relation(fields: [militarId], references: [id])
 
+  @@index([militarId], map: "contacto_emergencia_militarId_fkey")
   @@map("contacto_emergencia")
 }
 
@@ -186,8 +193,6 @@ model Historico {
   @@map("historico")
 }
 
-//Modulo de sistema
-
 model Usuario {
   id        String   @id @default(uuid())
   username  String   @unique
@@ -200,5 +205,6 @@ model Usuario {
   updatedAt DateTime @updatedAt
   militar   Militar  @relation(fields: [militarId], references: [id])
 
+  @@index([militarId], map: "usuario_militarId_fkey")
   @@map("usuario")
 }

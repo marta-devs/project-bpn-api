@@ -11,6 +11,7 @@ export const deleteTableAll = async () => {
 		prisma.endereco.deleteMany(),
 		prisma.usuario.deleteMany(),
 		prisma.militar.deleteMany(),
+		prisma.formacoesMilitares.deleteMany(),
 	]);
 };
 

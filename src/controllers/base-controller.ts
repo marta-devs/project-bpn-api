@@ -53,10 +53,13 @@ export abstract class BaseController {
 	private async handleRead(request: Request, response: Response) {
 		try {
 			const query = request.query;
-
-			const resultados = await this.baseService.execute({
-				filtros: { ...query },
-			});
+			const params = request.params;
+			const resultados = await this.baseService.execute(
+				{
+					filtros: { ...query },
+				},
+				params,
+			);
 
 			if (resultados.length === 0) {
 				return noContent(response, 'Não existe nenhum dado na base de dados');
@@ -72,10 +75,14 @@ export abstract class BaseController {
 		try {
 			const corpoRequisicao = request.body;
 			const user = request.user;
+			const params = request.params.id;
+
+			console.log(params);
 
 			const resultado = await this.baseService.execute(
 				{ ...corpoRequisicao },
 				user,
+				params,
 			);
 
 			return created(response, { data: resultado }, 'Dado criado com sucesso');

@@ -33,25 +33,6 @@ const doc = {
 					},
 				],
 			},
-			noContentDelete: {
-				data: null,
-				message: 'Dados deletado com Sucesso',
-				error: null,
-			},
-			badRequestError: {
-				message: 'Error de validação',
-				data: null,
-				error: {
-					statusCode: '400',
-				},
-			},
-			serverError: {
-				message: 'Erro interno. Por favor tente mais tarde.',
-				data: null,
-				error: {
-					statusCode: '500',
-				},
-			},
 			someEnum: {
 				'@enum': ['red', 'yellow', 'green'],
 			},
@@ -163,6 +144,6 @@ const doc = {
 };
 
 const outputFile = '../../swagger-output.json';
-const routes = ['../routes/*.ts']; // Path to your API routes
+const routes = ['../routes.ts']; // Path to your API routes
 
 swaggerAutogen({ openapi: '3.1.0' })(outputFile, routes, doc);
