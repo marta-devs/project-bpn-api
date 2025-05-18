@@ -7,7 +7,11 @@ export abstract class BaseService<InputDTO = any, OutputDTO = any> {
 		public operationCrud: OperationCrud,
 	) {}
 
-	public abstract execute(inputDTO: InputDTO, user?: any): Promise<OutputDTO>;
+	public abstract execute(
+		inputDTO: InputDTO,
+		user?: any,
+		params?: any,
+	): Promise<OutputDTO>;
 
 	protected async executeBase(input: any, include?: any): Promise<any> {
 		switch (this.operationCrud) {

@@ -21,7 +21,7 @@ export interface AddFormacaoMilitarOutPut {
 	createdAt: Date;
 	updatedAt: Date;
 }
-export class AddFormacaoMilitarService extends BaseService<
+export class AdicionarFormacaoMilitarService extends BaseService<
 	AddFormacaoMilitarInPut,
 	AddFormacaoMilitarOutPut
 > {
@@ -31,8 +31,15 @@ export class AddFormacaoMilitarService extends BaseService<
 	public async execute(
 		inputDTO: AddFormacaoMilitarInPut,
 		user?: any,
+		params?: any,
 	): Promise<AddFormacaoMilitarOutPut> {
-		const result = await super.executeBase(inputDTO);
+		console.log(inputDTO);
+		const input = {
+			...inputDTO,
+			militarId: params,
+		};
+		console.log(input);
+		const result = await super.executeBase(input);
 		return result;
 	}
 }
