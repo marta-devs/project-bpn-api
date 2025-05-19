@@ -75,14 +75,10 @@ export abstract class BaseController {
 		try {
 			const corpoRequisicao = request.body;
 			const user = request.user;
-			const params = request.params.id;
-
-			console.log(params);
 
 			const resultado = await this.baseService.execute(
 				{ ...corpoRequisicao },
 				user,
-				params,
 			);
 
 			return created(response, { data: resultado }, 'Dado criado com sucesso');

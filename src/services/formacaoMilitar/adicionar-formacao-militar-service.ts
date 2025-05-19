@@ -31,15 +31,8 @@ export class AdicionarFormacaoMilitarService extends BaseService<
 	public async execute(
 		inputDTO: AddFormacaoMilitarInPut,
 		user?: any,
-		params?: any,
 	): Promise<AddFormacaoMilitarOutPut> {
-		console.log(inputDTO);
-		const input = {
-			...inputDTO,
-			militarId: params,
-		};
-		console.log(input);
-		const result = await super.executeBase(input);
+		const result = await super.executeBase(inputDTO);
 		return result;
 	}
 }

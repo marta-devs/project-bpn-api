@@ -13,8 +13,8 @@ describe('RemoverMilitarRoutes', () => {
 	});
 
 	test('should route DELETE /militares return 204 on sucess', async () => {
-		const { id } = await createFakeMilitar();
-		const url = `/api/v1/militares/${id}`;
+		const { militar } = await createFakeMilitar();
+		const url = `/api/v1/militares/${militar.id}`;
 		const response = await request(express.app).delete(url);
 		expect(response.status).toBe(204);
 	});

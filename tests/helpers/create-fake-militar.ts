@@ -60,6 +60,16 @@ export const createFakeMilitar = async () => {
 			},
 		});
 
-		return militar;
+		const formacaoMilitar = await prismaTransaction.formacoesMilitares.create({
+			data: {
+				curso: 'Contabilidade90',
+				instituicao: 'Agostinho neto 2',
+				dataInicio: '2022-05-09T18:04:40.787Z',
+				dataFim: '2025-05-09T18:04:40.787Z',
+				militarId: militar.id,
+			},
+		});
+
+		return { militar, formacaoMilitar };
 	});
 };

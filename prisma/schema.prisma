@@ -37,8 +37,6 @@ model Militar {
   Promocoes           Promocoes[]
   Usuario             Usuario[]
 
-  @@index([dadosPessoaisId], map: "militar_dadosPessoaisId_fkey")
-  @@index([enderecoId], map: "militar_enderecoId_fkey")
   @@map("militar")
 }
 
@@ -80,9 +78,8 @@ model Promocoes {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   militarId    String
-  militar      Militar  @relation(fields: [militarId], references: [id])
+  militar      Militar  @relation(fields: [militarId], references: [id], onDelete: Cascade)
 
-  @@index([militarId], map: "promocoes_militarId_fkey")
   @@map("promocoes")
 }
 
@@ -98,7 +95,7 @@ model FormacoesAcademicas {
   militarId    String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  militar      Militar  @relation(fields: [militarId], references: [id])
+  militar      Militar  @relation(fields: [militarId], references: [id], onDelete: Cascade)
 
   @@index([militarId], map: "formacoes_academicas_militarId_fkey")
   @@map("formacoes_academicas")
@@ -113,9 +110,8 @@ model FormacoesMilitares {
   militarId   String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  militar     Militar  @relation(fields: [militarId], references: [id])
+  militar     Militar  @relation(fields: [militarId], references: [id], onDelete: Cascade)
 
-  @@index([militarId], map: "formacoes_militares_militarId_fkey")
   @@map("formacoes_militares")
 }
 
@@ -128,9 +124,8 @@ model Especializacoes {
   militarId   String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  militar     Militar  @relation(fields: [militarId], references: [id])
+  militar     Militar  @relation(fields: [militarId], references: [id], onDelete: Cascade)
 
-  @@index([militarId], map: "especializacoes_militarId_fkey")
   @@map("especializacoes")
 }
 
@@ -142,9 +137,8 @@ model ContactoEmergencia {
   militarId      String
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  militar        Militar  @relation(fields: [militarId], references: [id])
+  militar        Militar  @relation(fields: [militarId], references: [id], onDelete: Cascade)
 
-  @@index([militarId], map: "contacto_emergencia_militarId_fkey")
   @@map("contacto_emergencia")
 }
 
@@ -203,8 +197,7 @@ model Usuario {
   militarId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  militar   Militar  @relation(fields: [militarId], references: [id])
+  militar   Militar  @relation(fields: [militarId], references: [id], onDelete: Cascade)
 
-  @@index([militarId], map: "usuario_militarId_fkey")
   @@map("usuario")
 }

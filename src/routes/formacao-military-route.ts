@@ -18,7 +18,7 @@ const addFormacaoMilitaryControlle = new AddFormacaoMilitaryController(
 export default class FormacaoMilitary extends BaseRoute {
 	public routes(routes: Router): void {
 		routes.post(
-			'formacao-militar/:militar_id',
+			'/formacoes_militar',
 			validateData(addFormacaoMilitaryValidator),
 			(request, response) => {
 				new AddFormacaoMilitaryController(
