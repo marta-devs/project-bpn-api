@@ -97,7 +97,7 @@ model FormacoesAcademicas {
   updatedAt    DateTime @updatedAt
   militar      Militar  @relation(fields: [militarId], references: [id], onDelete: Cascade)
 
-  @@index([militarId], map: "formacoes_academicas_militarId_fkey")
+  
   @@map("formacoes_academicas")
 }
 

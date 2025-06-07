@@ -30,7 +30,7 @@ export class MilitarRepository extends DAOGenerico<Militar> {
 			},
 		});
 	}
-	public async buscarPorEmailMilitar(email: string): Promise<Militar | null> {
+	async buscarPorEmailMilitar(email: string): Promise<Militar | null> {
 		const militar = await prisma.militar.findFirst({
 			where: {
 				email,

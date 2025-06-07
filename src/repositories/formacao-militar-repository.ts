@@ -8,8 +8,7 @@ export class FormacaoMilitaryRepository extends DAOGenerico<FormacoesMilitares> 
 	}
 	public async buscarFormacaoMilitarPorIdMilitar(
 		id: string,
-	): Promise<FormacoesMilitares> {
-		console.log('id do repository militar', id);
+	): Promise<FormacoesMilitares[] | null> {
 		return await prisma.formacoesMilitares.findMany({
 			where: {
 				militarId: id,

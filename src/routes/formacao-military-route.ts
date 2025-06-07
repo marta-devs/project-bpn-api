@@ -10,19 +10,19 @@ import { BuscarTodasFormacaoMilitarService } from '../services/formacaoMilitar/b
 import { BuscarUmaFormacaoMilitarService } from '../services/formacaoMilitar/buscar-uma-formacao-militar-service';
 import { BuscarUmaFormacaoMilitarController } from '../controllers/formacao military/buscar-uma-formacao-militar-controller ';
 import { MilitarRepository } from '../repositories/militar-repository';
-
-const addFormacaoMilitaryControlle = new AddFormacaoMilitaryController(
-	new AdicionarFormacaoMilitarService(new FormacaoMilitaryRepository()),
-);
+import { describe } from 'node:test';
 
 export default class FormacaoMilitary extends BaseRoute {
 	public routes(routes: Router): void {
 		routes.post(
-			'/formacoes_militar',
+			'/formacao_militar/:militar_id',
 			validateData(addFormacaoMilitaryValidator),
 			(request, response) => {
 				new AddFormacaoMilitaryController(
-					new AdicionarFormacaoMilitarService(new FormacaoMilitaryRepository()),
+					new AdicionarFormacaoMilitarService(
+						new FormacaoMilitaryRepository(),
+						new MilitarRepository(),
+					),
 				).handle(request, response);
 			},
 		);

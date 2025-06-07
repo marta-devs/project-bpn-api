@@ -74,10 +74,10 @@ export abstract class BaseController {
 	private async handleCreate(request: Request, response: Response) {
 		try {
 			const corpoRequisicao = request.body;
+			const militarId = request.params.militar_id;
 			const user = request.user;
-
 			const resultado = await this.baseService.execute(
-				{ ...corpoRequisicao },
+				{ ...corpoRequisicao, militarId },
 				user,
 			);
 

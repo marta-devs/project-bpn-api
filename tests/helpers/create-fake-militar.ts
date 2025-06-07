@@ -17,7 +17,7 @@ export const createFakeMilitar = async () => {
 			data: {
 				filiacaoMaterna: 'any_filiacaoMaterna',
 				filiacaoPaterna: 'any_filiacaoPaterna',
-				numeroBI: 'any_numeroBI',
+				numeroBI: crypto.randomUUID(),
 				numeroPassaporte: 'any_numeroPassporte',
 				quantidadeFilho: 5,
 				nomeEsposa: 'any_esposa',
@@ -37,10 +37,10 @@ export const createFakeMilitar = async () => {
 				estadoCivil: 'solteiro',
 				nacionalidade: 'Angolana',
 				naturalidade: 'Huambo',
-				NIP: 'any_nif',
+				NIP: crypto.randomUUID(),
 				sexo: 'Masculino',
 				patente: 'any_patente',
-				situacaoMilitar: 'any_situacaoMilitar',
+				situacaoMilitar: 'Activo',
 				telefone1: 'any_telefone',
 				email: 'any_email',
 				telefone2: 'any_telefone2',
@@ -51,7 +51,7 @@ export const createFakeMilitar = async () => {
 
 		await prismaTransaction.usuario.create({
 			data: {
-				username: 'any_username',
+				username: crypto.randomUUID(),
 				funcao: 'any_funcao',
 				password: 'any_password',
 				qrcode: 'any_qrcode',

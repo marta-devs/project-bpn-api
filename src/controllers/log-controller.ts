@@ -6,7 +6,6 @@ export class LogController {
 	constructor(private readonly logService: LogService) {}
 	public async handle(request: Request, response: Response) {
 		const dados = request.body;
-		console.log(dados);
 		const usuario = await this.logService.logar(dados);
 		return ok(response, usuario, 'login realizado com sucesso');
 	}

@@ -6,12 +6,11 @@ export abstract class DAOGenerico<ModelPrisma = any> {
 		const response = include
 			? await this.model.findMany({ include })
 			: await this.model.findMany();
-		console.log('data: ', response);
 
 		return response;
 	}
 
-	async buscarPorId(id: string): Promise<ModelPrisma | null> {
+	async buscarPorId(id: string): Promise<ModelPrisma | any> {
 		return await this.model.findUnique({
 			where: {
 				id,
