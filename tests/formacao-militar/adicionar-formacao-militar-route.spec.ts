@@ -1,12 +1,9 @@
-import { describe, expect, should, test, vi, vitest } from 'vitest';
-import request from 'supertest';
+import { describe, expect, test } from 'vitest';
 import { beforeEach } from 'node:test';
 import { deleteTableAll } from '../../src/libs/prisma';
 import axios from 'axios';
 import { createFakeMilitar } from '../helpers/create-fake-militar';
 import { ExpressAdapter } from '../../src/libs/express';
-import { id, no } from 'zod/v4/locales';
-import e from 'express';
 import { updateFakeMilitar } from '../helpers/update-fake-militar';
 import type { Militar } from '../../generated/prisma';
 
