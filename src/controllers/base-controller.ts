@@ -92,7 +92,6 @@ export abstract class BaseController {
 			const paramentro = request.params;
 			const corpoRequisicao = request.body;
 			const user = request.user;
-
 			const resultado = await this.baseService.execute(
 				{ id: paramentro, ...corpoRequisicao },
 				user,

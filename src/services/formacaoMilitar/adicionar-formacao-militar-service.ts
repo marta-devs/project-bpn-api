@@ -59,12 +59,7 @@ export class AdicionarFormacaoMilitarService extends BaseService<
 		if (
 			militar.situacaoMilitar !== 'REMOVIDO' &&
 			militar.situacaoMilitar !== 'FALECIDO' &&
-			militar.situacaoMilitar !== 'ACTIVO' &&
-			militar.situacaoMilitar !== 'ATIVO' &&
-			militar.situacaoMilitar !== 'Ativo' &&
-			militar.situacaoMilitar !== 'Activo' &&
-			militar.situacaoMilitar !== 'activo' &&
-			militar.situacaoMilitar !== 'ativo'
+			militar.situacaoMilitar !== 'ACTIVO'
 		) {
 			throw new UnprocessableEntityError(
 				'Não é possível adicionar formação ao militar devido ao seu status atual',
