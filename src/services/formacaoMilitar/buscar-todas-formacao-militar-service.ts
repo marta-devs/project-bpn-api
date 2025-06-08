@@ -32,7 +32,7 @@ export class BuscarTodasFormacaoMilitarService extends BaseService<
 		inputDTO: FormacoesMilitaresInPut,
 		user?: any,
 	): Promise<FormacoesMilitares[] | null> {
-		const militar = await this.militarRepository.buscarPorId(user.id);
+		const militar = await this.militarRepository.buscarPorId(user.militar_id);
 		if (!militar) {
 			throw new NotFoundError('militar nao encontrado');
 		}

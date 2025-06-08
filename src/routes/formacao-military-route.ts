@@ -26,7 +26,7 @@ export default class FormacaoMilitary extends BaseRoute {
 				).handle(request, response);
 			},
 		);
-		routes.get('/militar/:id/formacoes', (request, response) => {
+		routes.get('/formacoes_militar/:militar_id', (request, response) => {
 			new BuscarTodasFormacaoMilitarController(
 				new BuscarTodasFormacaoMilitarService(
 					new FormacaoMilitaryRepository(),

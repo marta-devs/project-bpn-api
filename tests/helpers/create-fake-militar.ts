@@ -62,7 +62,7 @@ export const createFakeMilitar = async () => {
 
 		const formacaoMilitar = await prismaTransaction.formacoesMilitares.create({
 			data: {
-				curso: 'Contabilidade90',
+				curso: 'Contabilidade91',
 				instituicao: 'Agostinho neto 2',
 				dataInicio: '2022-05-09T18:04:40.787Z',
 				dataFim: '2025-05-09T18:04:40.787Z',
