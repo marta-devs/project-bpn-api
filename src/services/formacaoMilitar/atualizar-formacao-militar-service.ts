@@ -15,9 +15,12 @@ export class AtualizarFormacaoMilitarService extends BaseService {
 		super(formacaoMilitarRepository, OperationCrud.UPDATE);
 	}
 	public async execute(inputDTO: any, user?: any): Promise<any> {
+		const { id, ...corpoRequesicao } = inputDTO;
+
 		const formacaoMilitar = await this.formacaoMilitarRepository.buscarPorId(
-			inputDTO.id.id,
+			id.id,
 		);
+
 		if (!formacaoMilitar) {
 			throw new NotFoundError('formacao Militar nao encontrada');
 		}
@@ -27,7 +30,7 @@ export class AtualizarFormacaoMilitarService extends BaseService {
 		if (!militar) {
 			throw new NotFoundError('Militar não encontrado');
 		}
-		if (militar.situacaoMilitar !== 'ATIVO') {
+		if (militar.situacaoMilitar !== 'ACTIVO') {
 			throw new UnprocessableEntityError(
 				'Não é possível editar formação do militar devido ao seu status atual',
 			);

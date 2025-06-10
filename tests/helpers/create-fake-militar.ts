@@ -40,7 +40,7 @@ export const createFakeMilitar = async () => {
 				NIP: crypto.randomUUID(),
 				sexo: 'Masculino',
 				patente: 'any_patente',
-				situacaoMilitar: 'Activo',
+				situacaoMilitar: 'ACTIVO',
 				telefone1: 'any_telefone',
 				email: 'any_email',
 				telefone2: 'any_telefone2',

@@ -1,4 +1,4 @@
-import { date, z } from 'zod';
+import { z } from 'zod';
 
 export const addFormacaoMilitaryValidator = z.object({
 	curso: z.string().nonempty('preencha o campo curso'),
