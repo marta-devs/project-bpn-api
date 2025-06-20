@@ -9,7 +9,25 @@ import {
 } from '../../utils/api-errors';
 import { BaseService } from '../base-service';
 
-export class AdicionarPromocaoService extends BaseService<Promocoes> {
+interface AddPromocaoInput {
+	promocao: string;
+	descricao: string;
+	dataPromocao: Date;
+	militarId: string;
+}
+interface AddPromocaoOutput {
+	id: string;
+	promocao: string;
+	descricao: string;
+	dataPromocao: Date;
+	createdAt: Date;
+	updatedAt: Date;
+	militarId: string;
+}
+export class AdicionarPromocaoService extends BaseService<
+	AddPromocaoInput,
+	AddPromocaoOutput
+> {
 	constructor(
 		private readonly promocaoRespository: PromocaoRepositry,
 		private readonly usuarioRepository: UsuarioRepository,
@@ -18,37 +36,38 @@ export class AdicionarPromocaoService extends BaseService<Promocoes> {
 		super(promocaoRespository, OperationCrud.CREATE);
 	}
 	public async execute(
-		inputDTO: {
-			id: string;
-			promocao: string;
-			descricao: string;
-			dataPromocao: Date;
-			createdAt: Date;
-			updatedAt: Date;
-			militarId: string;
-		},
+		inputDTO: AddPromocaoInput,
 		user?: any,
-	): Promise<any | any> {
-		const usuario = await this.usuarioRepository.buscarPorId();
+	): Promise<AddPromocaoOutput | undefined> {
+		const usuario = await this.usuarioRepository.buscarPorMilitarId(
+			inputDTO.militarId,
+		);
 		if (!usuario) {
 			throw new NotFoundError('usuario nao encontrado');
 		}
-		if (usuario.funcao === 'admin' || usuario.funcao === 'gestor') {
-			const militar = await this.militarRepository.buscarPorId(
-				inputDTO.militarId,
+		if (usuario.funcao !== 'admin' && usuario.funcao !== 'gestor') {
+			throw new UnprocessableEntityError(
+				'Não é possível atribuir promoção ao militar devido ao sua funcao',
 			);
-			if (!militar) {
-				throw new NotFoundError('militar nao encontrado');
-			}
-			if (
-				militar.situacaoMilitar === 'REMOVIDO' ||
-				militar.situacaoMilitar === 'FALECIDO'
-			) {
-				throw new UnprocessableEntityError(
-					'Não é possível atribuir promoção ao militar devido ao seu status',
-				);
-			}
-			return await this.promocaoRespository.criar(inputDTO);
 		}
+		const militar = await this.militarRepository.buscarPorId(usuario.militarId);
+		if (!militar) {
+			throw new NotFoundError('militar nao encontrado');
+		}
+		if (
+			militar.situacaoMilitar === 'REMOVIDO' ||
+			militar.situacaoMilitar === 'FALECIDO'
+		) {
+			throw new UnprocessableEntityError(
+				'Não é possível atribuir promoção ao militar devido ao seu status',
+			);
+		}
+		const newInput = {
+			promocao: inputDTO.promocao,
+			descricao: inputDTO.descricao,
+			dataPromocao: inputDTO.dataPromocao,
+			militarId: inputDTO.militarId,
+		};
+		return await this.promocaoRespository.criar(newInput);
 	}
 }

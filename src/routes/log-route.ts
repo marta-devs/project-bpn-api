@@ -6,6 +6,7 @@ import { UsuarioRepository } from '../repositories/usuario-repositoy';
 import { MilitarRepository } from '../repositories/militar-repository';
 import { validateData } from '../middlewares/validation';
 import { loginValidator } from '../validators/login/login-validator';
+import { ensureAuthenticated } from '../middlewares/auth';
 
 export default class LogRoute extends BaseRoute {
 	public routes(routes: Router): void {

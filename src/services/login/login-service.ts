@@ -14,16 +14,18 @@ export interface LoginRepositoryInPut {
 	password: string;
 }
 export interface LoginRepositoryOutPut {
-	id: string;
-	username: string;
-	password: string;
-	status: string;
-	qrcode: string;
-	funcao: string;
-	militarId: string;
-	createdAt: Date;
-	updatedAt: Date;
-	accessToken: string;
+	usuario: {
+		id: string;
+		username: string;
+		password: string;
+		status: string;
+		qrcode: string;
+		funcao: string;
+		militarId: string;
+		createdAt: Date;
+		updatedAt: Date;
+	};
+	token: string;
 }
 
 export class LogService {
@@ -33,7 +35,7 @@ export class LogService {
 	) {}
 	public async logar(
 		loginRepositoryInPut: LoginRepositoryInPut,
-	): Promise<LoginRepositoryOutPut | null> {
+	): Promise<LoginRepositoryOutPut | null | undefined> {
 		try {
 			if (loginRepositoryInPut.username) {
 				const usuario = await this.usuarioRepository.buscarPorUsername(
@@ -50,12 +52,12 @@ export class LogService {
 					throw new UnauthorizedError('Credencias invalidas');
 				}
 				const token = jwt.sign({ userId: usuario.id }, jwtConfig.secret, {
-					subject: 'acessApi ',
+					subject: 'acessApi',
 					expiresIn: jwtConfig.expiresIn,
 				});
 				return {
-					...usuario,
-					accessToken: token,
+					usuario: { ...usuario },
+					token,
 				};
 			}
 
@@ -63,8 +65,7 @@ export class LogService {
 				const militar = await this.militarRepository.buscarPorEmailMilitar(
 					loginRepositoryInPut.email,
 				);
-				console.log(militar);
-				console.log(loginRepositoryInPut.email);
+
 				if (militar) {
 					const usuario = await this.usuarioRepository.buscarPorMilitarId(
 						militar.id,
@@ -76,12 +77,13 @@ export class LogService {
 						throw new UnauthorizedError('Credencias invalidas');
 					}
 					const token = jwt.sign({ userId: usuario.id }, jwtConfig.secret, {
-						subject: 'acessApi ',
+						subject: 'acessApi',
 						expiresIn: jwtConfig.expiresIn,
 					});
+					console.log(typeof token);
 					return {
-						...usuario,
-						accessToken: token,
+						usuario: usuario,
+						token,
 					};
 				}
 			}
