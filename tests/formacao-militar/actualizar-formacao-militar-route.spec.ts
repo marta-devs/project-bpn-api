@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, test } from 'vitest';
 import { deleteTableAll } from '../../src/libs/prisma';
 import { createFakeMilitar } from '../helpers/create-fake-militar';
 import axios from 'axios';
-import { updateFakeMilitar } from '../helpers/update-fake-militar';
+import { updateFakeMilitar } from '../helpers/update-fake-entities';
 import { date } from 'zod/v4';
 import { response } from 'express';
 const api = axios.create({

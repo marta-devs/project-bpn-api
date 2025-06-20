@@ -4,7 +4,7 @@ import { deleteTableAll } from '../../src/libs/prisma';
 import axios from 'axios';
 import { createFakeMilitar } from '../helpers/create-fake-militar';
 import { ExpressAdapter } from '../../src/libs/express';
-import { updateFakeMilitar } from '../helpers/update-fake-militar';
+import { updateFakeMilitar } from '../helpers/update-fake-entities';
 import type { Militar } from '../../generated/prisma';
 
 const app = new ExpressAdapter().app;

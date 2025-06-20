@@ -49,10 +49,10 @@ export const createFakeMilitar = async () => {
 			},
 		});
 
-		await prismaTransaction.usuario.create({
+		const usuario = await prismaTransaction.usuario.create({
 			data: {
 				username: crypto.randomUUID(),
-				funcao: 'any_funcao',
+				funcao: 'admin',
 				password: 'any_password',
 				qrcode: 'any_qrcode',
 				status: UsuarioStatus.ACTIVO,
@@ -70,6 +70,6 @@ export const createFakeMilitar = async () => {
 			},
 		});
 
-		return { militar, formacaoMilitar };
+		return { militar, formacaoMilitar, usuario };
 	});
 };
