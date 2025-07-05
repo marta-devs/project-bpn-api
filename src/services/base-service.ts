@@ -35,7 +35,8 @@ export abstract class BaseService<InputDTO = any, OutputDTO = any | any[]> {
 
 	private async executeUpdate(input: any): Promise<any> {
 		const { id, ...resto } = input;
-		return await this.daoGenerico.atualizar(input.id.id, resto);
+		console.log('meu id base service', id);
+		return await this.daoGenerico.atualizar(id, resto);
 	}
 
 	private async executeFind(input: any): Promise<any> {

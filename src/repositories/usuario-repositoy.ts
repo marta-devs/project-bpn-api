@@ -33,7 +33,7 @@ export class UsuarioRepository extends DAOGenerico<Usuario> {
 	}
 	public async buscarPorMilitarId(
 		militarId: string,
-	): Promise<UsuarioInterfaceOutPut | null> {
+	): Promise<UsuarioInterfaceOutPut | null | undefined> {
 		const usuario = await prisma.usuario.findFirst({
 			where: {
 				militarId,

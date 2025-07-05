@@ -5,6 +5,8 @@ import { AdicionarPromocaoService } from '../services/promocao/adicionar-promaca
 import { UsuarioRepository } from '../repositories/usuario-repositoy';
 import { MilitarRepository } from '../repositories/militar-repository';
 import { PromocaoRepositry } from '../repositories/promocao-repository';
+import { ActulizarPromocaoController } from '../controllers/promocao/actualizar-promocao-controller';
+import { ActulizarPromocaoService } from '../services/promocao/actualizar-promocao-service';
 
 export default class PromocaoRoutes extends BaseRoute {
 	public routes(routes: Router): void {
@@ -13,6 +15,14 @@ export default class PromocaoRoutes extends BaseRoute {
 				new AdicionarPromocaoService(
 					new PromocaoRepositry(),
 					new UsuarioRepository(),
+					new MilitarRepository(),
+				),
+			).handle(request, response);
+		});
+		routes.put('/promocao/:militar_id', (request, response) => {
+			new ActulizarPromocaoController(
+				new ActulizarPromocaoService(
+					new PromocaoRepositry(),
 					new MilitarRepository(),
 				),
 			).handle(request, response);

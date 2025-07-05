@@ -7,16 +7,40 @@ import {
 } from '../../utils/api-errors';
 import { BaseService } from '../base-service';
 
-export class AtualizarFormacaoMilitarService extends BaseService {
+interface ActualizarFormacaoMilitarInput {
+	id: string;
+	curso: string;
+	instituicao: string;
+	dataInicio: Date;
+	dataFim: string;
+}
+interface ActualizarFormacaoMilitarOutput {
+	id: string;
+	curso: string;
+	instituicao: string;
+	dataInicio: Date;
+	dataFim: Date;
+	militarId: string;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
+export class AtualizarFormacaoMilitarService extends BaseService<
+	ActualizarFormacaoMilitarInput,
+	ActualizarFormacaoMilitarOutput
+> {
 	constructor(
 		private readonly formacaoMilitarRepository: FormacaoMilitaryRepository,
 		private readonly militaryRepository: MilitarRepository,
 	) {
 		super(formacaoMilitarRepository, OperationCrud.UPDATE);
 	}
-	public async execute(inputDTO: any, user?: any): Promise<any> {
+	public async execute(
+		inputDTO: ActualizarFormacaoMilitarInput,
+		user?: any,
+	): Promise<any> {
 		const { id, ...corpoRequesicao } = inputDTO;
-
+		console.log('formacao id', id.id);
 		const formacaoMilitar = await this.formacaoMilitarRepository.buscarPorId(
 			id.id,
 		);
@@ -35,6 +59,13 @@ export class AtualizarFormacaoMilitarService extends BaseService {
 				'Não é possível editar formação do militar devido ao seu status atual',
 			);
 		}
-		return this.executeBase(inputDTO);
+		const newInput: ActualizarFormacaoMilitarInput = {
+			id: formacaoMilitar.id,
+			curso: inputDTO.curso,
+			instituicao: inputDTO.instituicao,
+			dataInicio: inputDTO.dataInicio,
+			dataFim: inputDTO.dataFim,
+		};
+		return this.executeBase(newInput);
 	}
 }
