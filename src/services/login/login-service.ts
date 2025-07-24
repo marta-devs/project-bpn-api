@@ -1,26 +1,27 @@
 import type { UsuarioRepository } from "../../repositories/usuario-repositoy";
 import jwt from "jsonwebtoken";
-import { NotFoundError, UnauthorizedError } from "../../utils/api-errors";
+import {
+  NotFoundError,
+  UnauthorizedError,
+  UnprocessableEntityError,
+} from "../../utils/api-errors";
 import jwtConfig from "../../configs/jwt-config";
 import type { MilitarRepository } from "../../repositories/militar-repository";
 export interface LoginRepositoryInPut {
-  username: string;
-  nip: string;
+  login: string;
   password: string;
 }
 export interface LoginRepositoryOutPut {
-  usuario: {
-    id: string;
-    username: string;
-    password: string;
-    status: string;
-    qrcode: string;
-    funcao: string;
-    militarId: string;
-    createdAt: Date;
-    updatedAt: Date;
-  };
-  token: string;
+  id: string;
+  username: string;
+  password: string;
+  status: string;
+  qrcode: string;
+  funcao: string;
+  militarId: string;
+  createdAt: Date;
+  updatedAt: Date;
+  accessToken: string;
 }
 
 export class LogService {
@@ -31,27 +32,42 @@ export class LogService {
   public async logar(
     loginRepositoryInPut: LoginRepositoryInPut
   ): Promise<LoginRepositoryOutPut | null | undefined> {
-    if (loginRepositoryInPut.username) {
-      const usuario = await this.usuarioRepository.buscarPorUsername(
-        loginRepositoryInPut.username
-      );
-      if (!usuario) {
-        throw new NotFoundError("Credencias invalidas");
-      }
-      if (loginRepositoryInPut.username !== usuario?.username) {
-        throw new UnauthorizedError("Credencias invalidas ");
-      }
-      if (loginRepositoryInPut.password !== usuario?.password) {
-        throw new UnauthorizedError("Credencias invalidas");
-      }
-      const token = jwt.sign({ userId: usuario.id }, jwtConfig.secret, {
-        subject: "acessApi",
-        expiresIn: jwtConfig.expiresIn,
-      });
-      return {
-        usuario: { ...usuario },
-        token,
-      };
+    console.log("meu dados", loginRepositoryInPut.login);
+    const usuario = await this.usuarioRepository.buscarPorUsername(
+      loginRepositoryInPut.login
+    );
+    const militar = await this.militarRepository.buscarPorNIP(
+      loginRepositoryInPut.login
+    );
+    if (!militar && !usuario) {
+      throw new NotFoundError("militar ou usuario nao encontrado");
     }
+
+    if (
+      loginRepositoryInPut.login !== usuario?.username &&
+      loginRepositoryInPut.login !== militar?.NIP
+    ) {
+      throw new UnauthorizedError("credenciais invalidas");
+    }
+
+    const usuarioMilitar = await this.usuarioRepository.buscarPorMilitarId(
+      militar.id
+    );
+    if (!usuarioMilitar) {
+      throw new NotFoundError("usuario nao encontrado");
+    }
+    if (
+      loginRepositoryInPut.password !== usuario.password ||
+      loginRepositoryInPut.password !== usuarioMilitar.password
+    ) {
+      throw new UnauthorizedError("credenciais invalidas");
+    }
+    const token = jwt.sign({ userId: usuario.id }, jwtConfig.secret, {
+      expiresIn: jwtConfig.expiresIn,
+    });
+    return {
+      ...usuario,
+      accessToken: token,
+    };
   }
 }
