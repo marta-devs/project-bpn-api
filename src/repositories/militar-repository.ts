@@ -30,13 +30,13 @@ export class MilitarRepository extends DAOGenerico<Militar> {
       },
     });
   }
-  async buscarPorNIP(nip: string): Promise<Militar | null | undefined> {
+  async buscarPorNIP(nip: string): Promise<Militar | null> {
     return await prisma.militar.findUnique({
       where: {
         NIP: nip,
       },
       include: {
-        Usuario: true,
+        usuario: true,
       },
     });
   }

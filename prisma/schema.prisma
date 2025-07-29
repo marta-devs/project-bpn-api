@@ -35,7 +35,7 @@ model Militar {
   dadosPessoais       DadosPessoais         @relation(fields: [dadosPessoaisId], references: [id], onDelete: Cascade)
   endereco            Endereco              @relation(fields: [enderecoId], references: [id], onDelete: Cascade)
   Promocoes           Promocoes[]
-  Usuario             Usuario[]
+  usuario             Usuario?
 
   @@map("militar")
 }
@@ -194,10 +194,10 @@ model Usuario {
   status    String
   qrcode    String
   funcao    String
-  militarId String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   militar   Militar  @relation(fields: [militarId], references: [id], onDelete: Cascade)
+  militarId String @unique
 
   @@map("usuario")
 }
