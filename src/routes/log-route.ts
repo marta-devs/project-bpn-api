@@ -11,12 +11,13 @@ import { ensureAuthenticated } from '../middlewares/auth';
 export default class LogRoute extends BaseRoute {
 	public routes(routes: Router): void {
 		routes.post(
-			'/usuario/login',
+			'/militar/login',
 			validateData(loginValidator),
 			(request: Request, response: Response) => {
-				new LogController(
-					new LogService(new UsuarioRepository(), new MilitarRepository()),
-				).handle(request, response);
+				new LogController(new LogService(new MilitarRepository())).handle(
+					request,
+					response,
+				);
 			},
 		);
 	}

@@ -9,7 +9,6 @@ export const deleteTableAll = async () => {
 	await prisma.$transaction([
 		prisma.dadosPessoais.deleteMany(),
 		prisma.endereco.deleteMany(),
-		prisma.usuario.deleteMany(),
 		prisma.militar.deleteMany(),
 		prisma.formacoesMilitares.deleteMany(),
 	]);

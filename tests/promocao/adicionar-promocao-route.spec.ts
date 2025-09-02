@@ -3,11 +3,8 @@ import { deleteTableAll } from '../../src/libs/prisma';
 import { createFakeMilitar } from '../helpers/create-fake-militar';
 import axios from 'axios';
 import { ExpressAdapter } from '../../src/libs/express';
-import {
-	updateFakeMilitar,
-	updateUsuario,
-} from '../helpers/update-fake-entities';
-import { date } from 'zod/v4';
+import { updateFakeMilitar } from '../helpers/update-fake-entities';
+
 const app = new ExpressAdapter().app;
 describe('AdicionarPromocaoRoute', async () => {
 	beforeEach(async () => {
@@ -52,26 +49,41 @@ describe('AdicionarPromocaoRoute', async () => {
 	test('is should oute /promocao/:militar_id return status 422 ', async () => {
 		const result = await createFakeMilitar();
 
-		const usuario = {
-			id: result.usuario.id,
-			username: 'any_username',
-			funcao: 'any_function',
-			password: 'any_password',
-			qrcode: 'any_qrcode',
-			status: 'ATIVO',
-			militarId: result.militar.id,
-			createdAt: result.usuario.createdAt,
-			updatedAt: result.usuario.updatedAt,
+		const militar = {
+			id: result.militar.id,
+			username: result.militar.username,
+			password: result.militar.password,
+			status: result.militar.status,
+			qrcode: result.militar.qrcode,
+			funcao: result.militar.funcao,
+			nome: result.militar.nome,
+			nomeGuerra: result.militar.nomeGuerra,
+			dataNascimento: result.militar.dataNascimento,
+			dataIncorporacao: result.militar.dataIncorporacao,
+			estadoCivil: result.militar.estadoCivil,
+			nacionalidade: result.militar.nacionalidade,
+			naturalidade: result.militar.naturalidade,
+			NIP: result.militar.NIP,
+			sexo: result.militar.sexo,
+			patente: result.militar.patente,
+			situacaoMilitar: 'removido',
+			telefone1: result.militar.telefone1,
+			email: result.militar.email,
+			telefone2: result.militar.telefone2,
+			enderecoId: result.militar.enderecoId,
+			dadosPessoaisId: result.militar.dadosPessoaisId,
+			createdAt: result.militar.createdAt,
+			updatedAt: result.militar.updatedAt,
 		};
 
-		const newUsuario = await updateUsuario(usuario);
+		const newMilitar = await updateFakeMilitar(militar);
 		const data = {
 			promocao: 'capitao',
 			descricao: 'capitao do departamento',
 			dataPromocao: '2017-09-08T15:25:53Z',
 		};
 		try {
-			await api.post(`/promocao/${newUsuario.militarId}`, data);
+			await api.post(`/promocao/${newMilitar.id}`, data);
 		} catch (error) {
 			expect(error.response.status).toBe(422);
 			expect(error.response.data.message).toEqual(
@@ -84,6 +96,11 @@ describe('AdicionarPromocaoRoute', async () => {
 
 		const militar = {
 			id: result.militar.id,
+			username: result.militar.username,
+			password: result.militar.password,
+			status: result.militar.status,
+			qrcode: result.militar.qrcode,
+			funcao: result.militar.funcao,
 			nome: result.militar.nome,
 			nomeGuerra: result.militar.nomeGuerra,
 			dataNascimento: result.militar.dataNascimento,

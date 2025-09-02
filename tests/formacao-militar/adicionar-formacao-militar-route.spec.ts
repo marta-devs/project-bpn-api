@@ -59,6 +59,11 @@ describe('AddFormacaoMilitarRoute', async () => {
 		const result = await createFakeMilitar();
 		const militar: Militar = {
 			id: result.militar.id,
+			username: result.militar.username,
+			password: result.militar.password,
+			status: result.militar.status,
+			qrcode: result.militar.qrcode,
+			funcao: result.militar.funcao,
 			nome: result.militar.nome,
 			nomeGuerra: result.militar.nomeGuerra,
 			dataNascimento: result.militar.dataNascimento,

@@ -32,6 +32,11 @@ describe('ActualizarFormacaoMilitarRoute', async () => {
 		const militar = (await createFakeMilitar()).militar;
 		const newMilitar = {
 			id: militar.id,
+			username: militar.username,
+			password: militar.password,
+			status: militar.status,
+			qrcode: militar.qrcode,
+			funcao: militar.funcao,
 			nome: militar.nome,
 			nomeGuerra: militar.nomeGuerra,
 			dataNascimento: militar.dataNascimento,
